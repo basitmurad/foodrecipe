@@ -22,8 +22,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/recipes.json
+    - assets/data/unitools-recipes.json
+    - assets/data/LICENSE-unitools.txt
+    - assets/icon/icon.png
     - assets/fonts/OFL-Fraunces.txt
     - assets/fonts/OFL-PlusJakartaSans.txt
+    - assets/fonts/OFL-NotoColorEmoji.txt
   fonts:
     - family: Jakarta
       fonts:
@@ -40,6 +44,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Fraunces-SemiBold.ttf
           weight: 600
+    - family: Emoji
+      fonts:
+        - asset: assets/fonts/NotoColorEmoji-Subset.ttf
 
 flutter_launcher_icons:
   android: "ic_launcher"

@@ -100,6 +100,21 @@ class _CookModePageState extends State<CookModePage> {
                           letterSpacing: 1.6,
                         ),
                       ),
+                      if ((widget.recipe.minutesForStep(i) ?? 0) > 0) ...[
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Icon(Icons.timer_outlined,
+                                size: 20, color: scheme.primary),
+                            const SizedBox(width: 6),
+                            Text(
+                              'About ${formatMinutes(widget.recipe.minutesForStep(i)!)}',
+                              style: theme.textTheme.titleSmall
+                                  ?.copyWith(color: scheme.primary),
+                            ),
+                          ],
+                        ),
+                      ],
                       const SizedBox(height: 18),
                       Text(
                         _steps[i],

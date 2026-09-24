@@ -19,6 +19,10 @@ class AppColors {
 class AppTheme {
   static const appName = 'Stepwise Kitchen';
 
+  /// Bundled subset of Noto Color Emoji, so recipe art looks the same on
+  /// every device, including older Android versions without newer emoji.
+  static const emojiFont = 'Emoji';
+
   static ThemeData light() => _build(
         brightness: Brightness.light,
         background: AppColors.paper,

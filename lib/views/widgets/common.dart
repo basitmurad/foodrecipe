@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foodrecipe/models/recipe.dart';
 import 'package:foodrecipe/services/favorites_store.dart';
+import 'package:foodrecipe/theme/app_theme.dart';
 import 'package:foodrecipe/views/detail.dart';
 
 /// Recipe artwork: a bundled photo when the recipe has one, otherwise an
@@ -56,6 +57,7 @@ class RecipeArt extends StatelessWidget {
                 child: Text(
                   recipe.emoji,
                   style: TextStyle(
+                    fontFamily: AppTheme.emojiFont,
                     fontSize: side * emojiScale,
                     height: 1,
                     shadows: [

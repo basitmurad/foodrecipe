@@ -12,19 +12,24 @@ import 'package:foodrecipe/views/search.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  _registerFontLicenses();
+  _registerLicenses();
   final repo = await RecipeRepository.load();
   final favorites = await FavoritesStore.load(repo);
   runApp(MyApp(repo: repo, favorites: favorites));
 }
 
-/// Bundled fonts are OFL-licensed; list them on Flutter's licence page.
-void _registerFontLicenses() {
-  const fonts = {'Fraunces': 'OFL-Fraunces', 'Plus Jakarta Sans': 'OFL-PlusJakartaSans'};
+/// List bundled content licences on Flutter's licence page: the OFL fonts and
+/// the CC BY-SA 4.0 recipe data.
+void _registerLicenses() {
+  const bundled = {
+    'Fraunces': 'assets/fonts/OFL-Fraunces.txt',
+    'Plus Jakarta Sans': 'assets/fonts/OFL-PlusJakartaSans.txt',
+    'Noto Color Emoji': 'assets/fonts/OFL-NotoColorEmoji.txt',
+    'UniTools World Recipes (CC BY-SA 4.0)': 'assets/data/LICENSE-unitools.txt',
+  };
   LicenseRegistry.addLicense(() async* {
-    for (final MapEntry(key: name, value: file) in fonts.entries) {
-      final text = await rootBundle.loadString('assets/fonts/$file.txt');
-      yield LicenseEntryWithLineBreaks([name], text);
+    for (final MapEntry(key: name, value: path) in bundled.entries) {
+      yield LicenseEntryWithLineBreaks([name], await rootBundle.loadString(path));
     }
   });
 }

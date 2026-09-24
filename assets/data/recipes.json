@@ -2,11 +2,14 @@
   "categories": [
     { "name": "Breakfast", "emoji": "🍳", "color": "#F3A712" },
     { "name": "Chicken", "emoji": "🍗", "color": "#E4572E" },
-    { "name": "Beef", "emoji": "🥩", "color": "#B23A48" },
+    { "name": "Meat", "emoji": "🥩", "color": "#B23A48" },
     { "name": "Seafood", "emoji": "🐟", "color": "#2E86AB" },
-    { "name": "Vegetarian", "emoji": "🥗", "color": "#6B8F71" },
-    { "name": "Pasta", "emoji": "🍝", "color": "#D98E04" },
+    { "name": "Vegetarian", "emoji": "🥦", "color": "#6B8F71" },
+    { "name": "Pasta & Noodles", "emoji": "🍝", "color": "#D98E04" },
     { "name": "Soup", "emoji": "🍲", "color": "#C8553D" },
+    { "name": "Salads & Sides", "emoji": "🥗", "color": "#7FA650" },
+    { "name": "Snacks & Sauces", "emoji": "🥫", "color": "#8E6C8A" },
+    { "name": "Breads & Baking", "emoji": "🍞", "color": "#B5835A" },
     { "name": "Dessert", "emoji": "🍰", "color": "#C05780" }
   ],
   "recipes": [
@@ -268,7 +271,7 @@
     {
       "id": "smash-burgers",
       "name": "Classic Smash Burgers",
-      "category": "Beef",
+      "category": "Meat",
       "cuisine": "American",
       "emoji": "🍔",
       "prepMinutes": 10,
@@ -297,7 +300,7 @@
     {
       "id": "beef-broccoli",
       "name": "Beef & Broccoli Stir-Fry",
-      "category": "Beef",
+      "category": "Meat",
       "cuisine": "Chinese",
       "emoji": "🥦",
       "prepMinutes": 15,
@@ -329,7 +332,7 @@
     {
       "id": "chili-con-carne",
       "name": "Chilli con Carne",
-      "category": "Beef",
+      "category": "Meat",
       "cuisine": "Mexican",
       "emoji": "🌶️",
       "prepMinutes": 15,
@@ -366,7 +369,7 @@
     {
       "id": "beef-tacos",
       "name": "Crispy Beef Tacos",
-      "category": "Beef",
+      "category": "Meat",
       "cuisine": "Mexican",
       "emoji": "🌮",
       "prepMinutes": 15,
@@ -597,7 +600,7 @@
     {
       "id": "greek-salad",
       "name": "Village Greek Salad",
-      "category": "Vegetarian",
+      "category": "Salads & Sides",
       "cuisine": "Greek",
       "emoji": "🥗",
       "prepMinutes": 15,
@@ -661,7 +664,7 @@
     {
       "id": "aglio-e-olio",
       "name": "Spaghetti Aglio e Olio",
-      "category": "Pasta",
+      "category": "Pasta & Noodles",
       "cuisine": "Italian",
       "emoji": "🧄",
       "prepMinutes": 5,
@@ -690,7 +693,7 @@
     {
       "id": "creamy-tomato-penne",
       "name": "Creamy Tomato Penne",
-      "category": "Pasta",
+      "category": "Pasta & Noodles",
       "cuisine": "Italian",
       "emoji": "🍅",
       "prepMinutes": 5,
@@ -721,7 +724,7 @@
     {
       "id": "carbonara",
       "name": "Spaghetti Carbonara",
-      "category": "Pasta",
+      "category": "Pasta & Noodles",
       "cuisine": "Italian",
       "emoji": "🥓",
       "prepMinutes": 10,
@@ -751,7 +754,7 @@
     {
       "id": "pesto-pasta",
       "name": "Pesto Pasta with Blistered Tomatoes",
-      "category": "Pasta",
+      "category": "Pasta & Noodles",
       "cuisine": "Italian",
       "emoji": "🌿",
       "prepMinutes": 10,

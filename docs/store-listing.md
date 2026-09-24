@@ -11,7 +11,7 @@ Stepwise Kitchen: Easy Recipes
 ## Short description (max 80)
 
 ```
-32 hand-picked recipes from around the world, with a step-by-step Cook Mode.
+530 recipes from 127 countries, with nutrition and a step-by-step Cook Mode.
 ```
 
 ## Full description (max 4000)
@@ -19,13 +19,16 @@ Stepwise Kitchen: Easy Recipes
 ```
 Stepwise Kitchen is a calm, beautiful cookbook that fits in your pocket — no sign-up, no ads, and no internet needed.
 
-Every recipe is carefully written with clear ingredients, simple numbered steps, and honest cooking times, so you can stop scrolling and start cooking.
+Explore 530 home-cooking recipes from 127 countries. Every recipe has clear ingredients, simple numbered steps, and honest cooking times, so you can stop scrolling and start cooking.
 
 🍳 TODAY'S PICK
 A new dish every day to spark ideas. Not feeling it? Tap the dice for a surprise.
 
 🔥 COOK MODE
-Big, easy-to-read steps, one at a time. Swipe or tap "Next step" with messy hands and never lose your place in a recipe again.
+Big, easy-to-read steps, one at a time, with how long each step takes. Swipe or tap "Next step" with messy hands and never lose your place in a recipe again.
+
+🥗 NUTRITION AT A GLANCE
+Calories, protein, carbs and fat per serving for more than 490 recipes.
 
 ✅ INGREDIENT CHECKLIST
 Tick ingredients off as you gather them, so nothing gets forgotten.
@@ -40,9 +43,9 @@ Search by dish, cuisine, or ingredient. Have chickpeas? Stepwise Kitchen finds C
 Save your favourites with one tap. They're stored only on your phone.
 
 🌍 FLAVOURS FROM AROUND THE WORLD
-Indian, Italian, Mexican, Japanese, Middle Eastern, Greek, Turkish, Chinese and more, across eight categories: Breakfast, Chicken, Beef, Seafood, Vegetarian, Pasta, Soup and Dessert.
+From Georgian khinkali and Mongolian buuz to Peruvian lomo saltado, Persian tahdig and Ethiopian doro wat, across eleven categories: Breakfast, Chicken, Meat, Seafood, Vegetarian, Pasta & Noodles, Soup, Salads & Sides, Snacks & Sauces, Breads & Baking and Dessert.
 
-Highlights include Butter Chicken, Shakshuka, Spaghetti Carbonara, Chicken Teriyaki, Chilli con Carne, Salmon Poke Bowls, Turkish Red Lentil Soup, Chewy Chocolate Chip Cookies and many more, with plenty of vegetarian and vegan options.
+Search by a dish's English or original name. Highlights include Butter Chicken, Pad Thai, Coq au Vin, Rendang, Tiramisu, Crème Brûlée and hundreds more, with plenty of vegetarian, vegan and gluten-free options.
 
 🌙 LIGHT & DARK THEMES
 A warm, easy-on-the-eyes design that follows your phone's theme.
@@ -51,6 +54,8 @@ A warm, easy-on-the-eyes design that follows your phone's theme.
 No account. No ads. No tracking. Stepwise Kitchen doesn't collect any data and works completely offline, so it's perfect in the kitchen, on holiday, or anywhere with a weak signal.
 
 Happy cooking! 🍽️
+
+Recipe data includes recipes adapted from UniTools (theunitools.com), licensed CC BY-SA 4.0.
 ```
 
 ## Other listing settings
@@ -94,7 +99,10 @@ adb exec-out screencap -p > screenshot-1.png
 
 ## Content rating questionnaire
 
-Category: **Reference, News, or Educational**. Answer **No** to violence, sexuality, language, controlled substances, gambling, user interaction, sharing location and purchases. Expected rating: **Everyone / PEGI 3**.
+Note: about 70 recipes use wine, beer or other alcohol as a cooking ingredient (e.g. Coq au Vin, Risotto alla Milanese). If the questionnaire asks about references to alcohol, answer **Yes**. Recipe apps that cook with wine are normally still rated for general audiences, but the questionnaire decides the final rating.
+
+
+Category: **Reference, News, or Educational**. Answer **No** to violence, sexuality, language, gambling, user interaction, sharing location and purchases.
 
 ## Target audience
 

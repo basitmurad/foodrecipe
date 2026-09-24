@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:foodrecipe/models/recipe.dart';
 import 'package:foodrecipe/services/favorites_store.dart';
+import 'package:foodrecipe/theme/app_theme.dart';
+import 'package:foodrecipe/views/about.dart';
 import 'package:foodrecipe/views/widgets/common.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context);
     final repo = AppScope.repoOf(context);
     final pick = _shuffled ?? repo.recipeOfTheDay();
-    final quick = repo.recipes.where((r) => r.totalMinutes <= 30).toList();
+    final quick = repo.quickPicks();
     final grid =
         _selected == _all ? repo.recipes : repo.byCategory(_selected);
 
@@ -43,13 +45,27 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             sliver: SliverList.list(
               children: [
-                Text(
-                  _greeting.toUpperCase(),
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    letterSpacing: 1.6,
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _greeting.toUpperCase(),
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          letterSpacing: 1.6,
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: 'About',
+                      visualDensity: VisualDensity.compact,
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const AboutPage()),
+                      ),
+                      icon: const Icon(Icons.info_outline_rounded),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 6),
                 Text(
@@ -341,7 +357,13 @@ class _CategoryBubble extends StatelessWidget {
                         ]
                       : null,
                 ),
-                child: Text(category.emoji, style: const TextStyle(fontSize: 30)),
+                child: Text(
+                  category.emoji,
+                  style: const TextStyle(
+                    fontFamily: AppTheme.emojiFont,
+                    fontSize: 30,
+                  ),
+                ),
               ),
               const SizedBox(height: 6),
               Text(

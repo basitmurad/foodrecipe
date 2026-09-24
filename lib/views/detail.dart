@@ -76,6 +76,16 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   Text(recipe.name,
                       style: theme.textTheme.headlineMedium
                           ?.copyWith(height: 1.1)),
+                  if (recipe.nativeName != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      recipe.nativeName!,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: scheme.primary,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   Text(
                     recipe.description,
@@ -92,6 +102,10 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
                   ),
                   const SizedBox(height: 22),
                   _StatsRow(recipe: recipe),
+                  if (recipe.nutrition != null) ...[
+                    const SizedBox(height: 12),
+                    _NutritionCard(nutrition: recipe.nutrition!),
+                  ],
                 ],
               ),
             ),
@@ -119,9 +133,12 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
             itemBuilder: (_, i) => _StepRow(
               index: i,
               text: recipe.steps[i],
+              minutes: recipe.minutesForStep(i),
               isLast: i == recipe.steps.length - 1,
             ),
           ),
+          if (recipe.source != null)
+            SliverToBoxAdapter(child: _SourceCredit(source: recipe.source!)),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),
@@ -277,12 +294,23 @@ class _IngredientRow extends StatelessWidget {
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: Text(
-                  ingredient.name,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    decoration: checked ? TextDecoration.lineThrough : null,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ingredient.name,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        decoration: checked ? TextDecoration.lineThrough : null,
+                      ),
+                    ),
+                    if (ingredient.note != null)
+                      Text(
+                        ingredient.note!,
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: scheme.onSurfaceVariant),
+                      ),
+                  ],
                 ),
               ),
               const SizedBox(width: 12),
@@ -302,11 +330,13 @@ class _IngredientRow extends StatelessWidget {
 class _StepRow extends StatelessWidget {
   final int index;
   final String text;
+  final int? minutes;
   final bool isLast;
 
   const _StepRow({
     required this.index,
     required this.text,
+    required this.minutes,
     required this.isLast,
   });
 
@@ -350,9 +380,116 @@ class _StepRow extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 5, bottom: 22),
-                child: Text(
-                  text,
-                  style: theme.textTheme.bodyLarge?.copyWith(height: 1.55),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text,
+                      style: theme.textTheme.bodyLarge?.copyWith(height: 1.55),
+                    ),
+                    if (minutes != null && minutes! > 0) ...[
+                      const SizedBox(height: 6),
+                      MetaChip(
+                        icon: Icons.timer_outlined,
+                        label: formatMinutes(minutes!),
+                        color: scheme.primary,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NutritionCard extends StatelessWidget {
+  final Nutrition nutrition;
+
+  const _NutritionCard({required this.nutrition});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    Widget value(String amount, String label) => Expanded(
+          child: Column(
+            children: [
+              Text(amount, style: theme.textTheme.titleMedium),
+              Text(
+                label,
+                style: theme.textTheme.labelSmall
+                    ?.copyWith(color: scheme.onSurfaceVariant),
+              ),
+            ],
+          ),
+        );
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 14, 8, 12),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              value('${nutrition.calories}', 'kcal'),
+              value('${nutrition.protein} g', 'Protein'),
+              value('${nutrition.carbs} g', 'Carbs'),
+              value('${nutrition.fat} g', 'Fat'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Per serving · estimated from ingredients',
+            style: theme.textTheme.labelSmall
+                ?.copyWith(color: scheme.onSurfaceVariant),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Attribution required by the recipe's licence (CC BY-SA 4.0 for UniTools).
+class _SourceCredit extends StatelessWidget {
+  final RecipeSource source;
+
+  const _SourceCredit({required this.source});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final soft = theme.colorScheme.onSurfaceVariant;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(22, 4, 22, 0),
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          border: Border.all(color: theme.colorScheme.outlineVariant),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.menu_book_outlined, size: 18, color: soft),
+            const SizedBox(width: 10),
+            Expanded(
+              child: SelectableText.rich(
+                TextSpan(
+                  style: theme.textTheme.bodySmall?.copyWith(color: soft),
+                  children: [
+                    TextSpan(text: 'Recipe adapted from ${source.name}, '
+                        'licensed CC BY-SA 4.0.\n'),
+                    TextSpan(
+                      text: source.url,
+                      style: TextStyle(color: theme.colorScheme.primary),
+                    ),
+                  ],
                 ),
               ),
             ),
