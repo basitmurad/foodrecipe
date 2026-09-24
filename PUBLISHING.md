@@ -32,13 +32,12 @@ Account `pub-7477364225383856` is set up. Current IDs:
 |---|---|---|
 | App ID | `ca-app-pub-7477364225383856~8699252634` | `android/gradle.properties` (`admobAppId`) |
 | Banner unit | `ca-app-pub-7477364225383856/6975107429` | `lib/services/ads.dart` (`_bannerId`) |
-| Interstitial unit | not created yet (full-screen ads are off in release) | `lib/services/ads.dart` (`_interstitialId`) |
+| Interstitial unit | `ca-app-pub-7477364225383856/9437619236` | `lib/services/ads.dart` (`_interstitialId`) |
 
 Still to do in AdMob:
-1. Create an **Interstitial** ad unit and put its ID in `_interstitialId`.
-2. **Privacy & messaging → GDPR**: create and publish a consent message. The app's consent form shows whatever you publish there.
-3. After the Play listing is live, link the app to it in AdMob (App settings → App store details).
-4. **app-ads.txt**: AdMob → Apps → your app → app-ads.txt gives you a line like
+1. **Privacy & messaging → GDPR**: create and publish a consent message. The app's consent form shows whatever you publish there.
+2. After the Play listing is live, link the app to it in AdMob (App settings → App store details).
+3. **app-ads.txt**: AdMob → Apps → your app → app-ads.txt gives you a line like
    `google.com, pub-7477364225383856, DIRECT, f08c47fec0942fa0`.
    Put it in a file named `app-ads.txt` at the root of the website you list on Play (for example `https://yoursite.com/app-ads.txt`). Without it, AdMob limits ad serving.
 

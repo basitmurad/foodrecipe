@@ -44,7 +44,7 @@ class InterstitialPacer {
 class Ads extends ChangeNotifier {
   // Stepwise Kitchen ad units (AdMob → Apps → Stepwise Kitchen → Ad units).
   static const _bannerId = 'ca-app-pub-7477364225383856/6975107429';
-  static const _interstitialId = ''; // TODO: create an Interstitial unit
+  static const _interstitialId = 'ca-app-pub-7477364225383856/9437619236';
 
   // https://developers.google.com/admob/android/test-ads
   static const _testBannerAndroid = 'ca-app-pub-3940256099942544/9214589741';
