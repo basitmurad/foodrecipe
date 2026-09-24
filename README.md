@@ -12,7 +12,7 @@ A calm, offline recipe app built with Flutter: 530 recipes from 127 countries, w
 - **Search**: instant matching on dish, cuisine, tag or ingredient
 - **Saved**: favourites stored on the device
 - Light and dark themes, bundled fonts; recipes work fully offline
-- Ads: a bottom banner and an occasional full-screen ad (at most every 4 recipes, 3-minute cooldown, never in Cook Mode), with Google's UMP consent form. See `lib/services/ads.dart` and PUBLISHING.md for AdMob setup
+- Ads: a bottom banner and an occasional full-screen ad (at most every 4 recipes, 3-minute cooldown, never in Cook Mode), with Google's UMP consent form. See `lib/services/ads.dart` and PUBLISHING.md for AdMob IDs and setup
 
 ## Getting started
 

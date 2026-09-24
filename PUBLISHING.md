@@ -26,29 +26,30 @@ Without this file, release builds fall back to the debug key, which Play rejects
 
 ## 3. Set up AdMob (once)
 
-1. Sign in at https://admob.google.com and add an app: **Android**, "Is the app listed on a supported app store?" → **No** for now (link it after the Play listing is live).
-2. Copy the **App ID** (`ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY`) into `android/gradle.properties`:
-   ```properties
-   admobAppId=ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY
-   ```
-3. Create two ad units and note their IDs (`ca-app-pub-…/…`):
-   - **Banner** (used as an anchored adaptive banner)
-   - **Interstitial**
-4. In AdMob → **Privacy & messaging**, create a **GDPR** message (and optionally a US states message) and publish it. The app's consent form shows whatever you publish there.
-5. Add **app-ads.txt**: AdMob → Apps → your app → app-ads.txt gives you a line like
-   `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`.
+Account `pub-7477364225383856` is set up. Current IDs:
+
+| What | ID | Where it lives |
+|---|---|---|
+| App ID | `ca-app-pub-7477364225383856~8699252634` | `android/gradle.properties` (`admobAppId`) |
+| Banner unit | `ca-app-pub-7477364225383856/6975107429` | `lib/services/ads.dart` (`_bannerId`) |
+| Interstitial unit | not created yet (full-screen ads are off in release) | `lib/services/ads.dart` (`_interstitialId`) |
+
+Still to do in AdMob:
+1. Create an **Interstitial** ad unit and put its ID in `_interstitialId`.
+2. **Privacy & messaging → GDPR**: create and publish a consent message. The app's consent form shows whatever you publish there.
+3. After the Play listing is live, link the app to it in AdMob (App settings → App store details).
+4. **app-ads.txt**: AdMob → Apps → your app → app-ads.txt gives you a line like
+   `google.com, pub-7477364225383856, DIRECT, f08c47fec0942fa0`.
    Put it in a file named `app-ads.txt` at the root of the website you list on Play (for example `https://yoursite.com/app-ads.txt`). Without it, AdMob limits ad serving.
 
-Until you do this, the app shows Google's **test ads**, which earn nothing. Never tap your own live ads: AdMob can suspend your account. Debug builds always use test ads.
+Debug and profile builds always show Google's **test ads**; only release builds request real ads. Never tap your own live ads: AdMob can suspend your account.
 
 ## 4. Build
 
 Bump `version:` in `pubspec.yaml` for every upload (`1.0.0+1` → `1.0.1+2`; the number after `+` must always increase).
 
 ```sh
-flutter build appbundle --release \
-  --dart-define=ADMOB_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/1111111111 \
-  --dart-define=ADMOB_INTERSTITIAL_ID=ca-app-pub-XXXXXXXXXXXXXXXX/2222222222
+flutter build appbundle --release
 ```
 
 Upload `build/app/outputs/bundle/release/app-release.aab`.

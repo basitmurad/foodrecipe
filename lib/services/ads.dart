@@ -37,15 +37,14 @@ class InterstitialPacer {
 /// leaves a recipe. Ads are only requested after Google's consent flow (UMP)
 /// says it's allowed.
 ///
-/// Real ad unit IDs are passed at build time and used only in release builds:
-///   flutter build appbundle --release \
-///     --dart-define=ADMOB_BANNER_ID=ca-app-pub-xxx/yyy \
-///     --dart-define=ADMOB_INTERSTITIAL_ID=ca-app-pub-xxx/zzz
-/// Debug builds, and release builds without those defines, use Google's test
-/// IDs, so you never click your own live ads while developing.
+/// Release builds use the real ad units below; an empty ID turns that ad
+/// type off. Debug and profile builds always use Google's test ads, so you
+/// never tap your own live ads while developing (AdMob suspends accounts
+/// for that). The AdMob *app* ID lives in android/gradle.properties.
 class Ads extends ChangeNotifier {
-  static const _bannerId = String.fromEnvironment('ADMOB_BANNER_ID');
-  static const _interstitialId = String.fromEnvironment('ADMOB_INTERSTITIAL_ID');
+  // Stepwise Kitchen ad units (AdMob → Apps → Stepwise Kitchen → Ad units).
+  static const _bannerId = 'ca-app-pub-7477364225383856/6975107429';
+  static const _interstitialId = ''; // TODO: create an Interstitial unit
 
   // https://developers.google.com/admob/android/test-ads
   static const _testBannerAndroid = 'ca-app-pub-3940256099942544/9214589741';
@@ -70,24 +69,22 @@ class Ads extends ChangeNotifier {
   /// Whether the About screen must offer "Ad privacy settings" (e.g. in the EEA/UK).
   bool get privacyOptionsRequired => _privacyOptionsRequired;
 
-  static bool get _useRealIds =>
-      kReleaseMode && _bannerId.isNotEmpty && _interstitialId.isNotEmpty;
+  /// The unit to request, or null if this ad type is off in this build.
+  static String? _unit(String real, String testAndroid, String testIos) {
+    if (!kReleaseMode) return Platform.isIOS ? testIos : testAndroid;
+    return real.isEmpty ? null : real;
+  }
 
-  String get bannerUnitId => _useRealIds
-      ? _bannerId
-      : (Platform.isIOS ? _testBannerIos : _testBannerAndroid);
+  String? get bannerUnitId =>
+      _unit(_bannerId, _testBannerAndroid, _testBannerIos);
 
-  String get _interstitialUnitId => _useRealIds
-      ? _interstitialId
-      : (Platform.isIOS ? _testInterstitialIos : _testInterstitialAndroid);
+  String? get _interstitialUnitId =>
+      _unit(_interstitialId, _testInterstitialAndroid, _testInterstitialIos);
 
   /// Runs the consent flow, then initialises ads if allowed. Call after the
   /// first frame, because the consent form needs a visible activity.
   Future<void> start() async {
     if (!_enabled) return;
-    if (kReleaseMode && !_useRealIds) {
-      debugPrint('Ads: release build without ADMOB_* ids, showing test ads.');
-    }
     // Consent from a previous session may already allow ads.
     await _initialiseIfAllowed();
     try {
@@ -146,9 +143,10 @@ class Ads extends ChangeNotifier {
   }
 
   void _loadInterstitial() {
-    if (!_ready || _interstitial != null) return;
+    final unit = _interstitialUnitId;
+    if (!_ready || _interstitial != null || unit == null) return;
     InterstitialAd.load(
-      adUnitId: _interstitialUnitId,
+      adUnitId: unit,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) => _interstitial = ad,
@@ -214,7 +212,8 @@ class _AdBannerState extends State<AdBanner> {
   }
 
   Future<void> _maybeLoad() async {
-    if (!mounted || !widget.ads.ready) return;
+    final unit = widget.ads.bannerUnitId;
+    if (!mounted || !widget.ads.ready || unit == null) return;
     final width = MediaQuery.sizeOf(context).width.truncate();
     if (width == _width) return;
     _width = width;
@@ -223,7 +222,7 @@ class _AdBannerState extends State<AdBanner> {
     _banner?.dispose();
     _loaded = false;
     _banner = BannerAd(
-      adUnitId: widget.ads.bannerUnitId,
+      adUnitId: unit,
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
