@@ -200,4 +200,13 @@ void main() {
       expect(pacer.recipeClosed(), isTrue);
     });
   });
+
+  test('ads fail quietly when the native plugin is missing', () async {
+    // In unit tests no platform plugin is registered, which is exactly what
+    // happens after a hot restart that added google_mobile_ads.
+    TestWidgetsFlutterBinding.ensureInitialized();
+    final ads = Ads();
+    await expectLater(ads.start(), completes);
+    expect(ads.ready, isFalse);
+  });
 }

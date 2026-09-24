@@ -90,38 +90,58 @@ class Ads extends ChangeNotifier {
     }
     // Consent from a previous session may already allow ads.
     await _initialiseIfAllowed();
-    ConsentInformation.instance.requestConsentInfoUpdate(
-      ConsentRequestParameters(),
-      () async {
-        await ConsentForm.loadAndShowConsentFormIfRequired((error) {
-          if (error != null) debugPrint('Ads: consent form: ${error.message}');
-        });
-        await _initialiseIfAllowed();
-      },
-      (error) async {
-        debugPrint('Ads: consent update failed: ${error.message}');
-        await _initialiseIfAllowed();
-      },
-    );
+    try {
+      ConsentInformation.instance.requestConsentInfoUpdate(
+        ConsentRequestParameters(),
+        () async {
+          try {
+            await ConsentForm.loadAndShowConsentFormIfRequired((error) {
+              if (error != null) {
+                debugPrint('Ads: consent form: ${error.message}');
+              }
+            });
+          } catch (e) {
+            debugPrint('Ads: consent form failed: $e');
+          }
+          await _initialiseIfAllowed();
+        },
+        (error) async {
+          debugPrint('Ads: consent update failed: ${error.message}');
+          await _initialiseIfAllowed();
+        },
+      );
+    } catch (e) {
+      debugPrint('Ads: consent unavailable: $e');
+    }
   }
 
+  /// Ads must never break the app: any SDK or plugin failure (for example a
+  /// MissingPluginException after a hot restart) just means no ads.
   Future<void> _initialiseIfAllowed() async {
-    _privacyOptionsRequired =
-        await ConsentInformation.instance.getPrivacyOptionsRequirementStatus() ==
-            PrivacyOptionsRequirementStatus.required;
-    if (!_ready && await ConsentInformation.instance.canRequestAds()) {
-      await MobileAds.instance.initialize();
-      _ready = true;
-      _loadInterstitial();
+    try {
+      _privacyOptionsRequired = await ConsentInformation.instance
+              .getPrivacyOptionsRequirementStatus() ==
+          PrivacyOptionsRequirementStatus.required;
+      if (!_ready && await ConsentInformation.instance.canRequestAds()) {
+        await MobileAds.instance.initialize();
+        _ready = true;
+        _loadInterstitial();
+      }
+    } catch (e) {
+      debugPrint('Ads: not available: $e');
     }
     notifyListeners();
   }
 
   /// Lets the user review or change their ad consent.
   Future<void> showPrivacyOptions() async {
-    await ConsentForm.showPrivacyOptionsForm((error) {
-      if (error != null) debugPrint('Ads: privacy options: ${error.message}');
-    });
+    try {
+      await ConsentForm.showPrivacyOptionsForm((error) {
+        if (error != null) debugPrint('Ads: privacy options: ${error.message}');
+      });
+    } catch (e) {
+      debugPrint('Ads: privacy options unavailable: $e');
+    }
     await _initialiseIfAllowed();
   }
 
