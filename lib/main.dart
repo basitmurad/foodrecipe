@@ -16,7 +16,8 @@ Future<void> main() async {
   _registerLicenses();
   final repo = await RecipeRepository.load();
   final favorites = await FavoritesStore.load(repo);
-  final ads = Ads();
+  // `--dart-define=NO_ADS=true` builds without ads, for store screenshots.
+  final ads = const bool.fromEnvironment('NO_ADS') ? Ads.disabled() : Ads();
   runApp(MyApp(repo: repo, favorites: favorites, ads: ads));
   // The consent form needs a visible activity, so start after the first frame.
   WidgetsBinding.instance.addPostFrameCallback((_) => ads.start());

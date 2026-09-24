@@ -78,21 +78,9 @@ Recipe data includes recipes adapted from UniTools (theunitools.com), licensed C
 |---|---|---|
 | App icon | 512 × 512 PNG | `docs/play/icon-512.png` |
 | Feature graphic | 1024 × 500 PNG | `docs/play/feature-graphic.png` |
-| Phone screenshots | 2–8, 9:16 or 16:9, min 320 px | Take from the emulator (see below) |
+| Phone screenshots | 1080 × 1920 PNG | `docs/play/screenshots/1-discover.png`, `2-recipe.png`, `3-cook-mode.png`, `4-search.png` |
 
-Suggested screenshots, in order:
-1. Discover: the Today's pick card
-2. The recipe grid with category bubbles
-3. A recipe page showing time, servings and difficulty
-4. Cook Mode on a step
-5. Search results for "chickpeas"
-6. The Saved tab with a few favourites
-
-Take them with the app running on the emulator:
-
-```sh
-adb exec-out screencap -p > screenshot-1.png
-```
+Screenshots are the real app, built without ads (`flutter build apk --debug --dart-define=NO_ADS=true`) with a clean status bar, framed with a caption. Upload them in order.
 
 ## Data safety form answers
 
