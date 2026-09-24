@@ -37,7 +37,7 @@ Upload `build/app/outputs/bundle/release/app-release.aab`.
 ## 4. Play Console checklist
 
 - **Recipe data**: bundled in `assets/data/recipes.json` — no API, no key, no internet permission. Add or edit recipes there; `flutter test` validates the file. A recipe can optionally set `"image": "assets/photos/x.jpg"` (add the folder to `pubspec.yaml`) to show a photo instead of the illustrated card.
-- **Privacy policy URL**: `docs/privacy-policy.html`. Publish it for free with GitHub Pages: push to GitHub, then go to repo **Settings → Pages → Deploy from a branch → `master` / `/docs`**. The URL will be `https://basitmurad.github.io/foodrecipe/privacy-policy.html`.
+- **Privacy policy URL**: `docs/privacy-policy.html`. Publish it for free with GitHub Pages: push to GitHub, then go to repo **Settings → Pages → Deploy from a branch → `master` / `/docs`**. The URL will be `https://basitmurad.github.io/foodrecipe/privacy-policy.html`. The same site also serves `terms.html` (Terms & Conditions) and a landing page at `https://basitmurad.github.io/foodrecipe/` that you can use as the app's website. Support email: apps.helpdesksupport@gmail.com.
 - **Store listing text and graphics**: ready to paste from `docs/store-listing.md`; icon and feature graphic are in `docs/play/`.
 - **Data safety form**: "No data collected" and "No data shared" are accurate for the current code.
 - **Screenshots**: at least 2 phone screenshots (suggestions in `docs/store-listing.md`).

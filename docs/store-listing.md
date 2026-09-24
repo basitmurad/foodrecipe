@@ -64,8 +64,10 @@ Recipe data includes recipes adapted from UniTools (theunitools.com), licensed C
 |---|---|
 | App category | Food & Drink |
 | Tags (pick up to 5) | Recipes, Cooking, Food & Drink, Meal planning, Cookbook |
-| Contact email | basitmurad7@gmail.com |
+| Contact email | apps.helpdesksupport@gmail.com |
+| Website | https://basitmurad.github.io/foodrecipe/ |
 | Privacy policy URL | https://basitmurad.github.io/foodrecipe/privacy-policy.html |
+| Terms & Conditions | https://basitmurad.github.io/foodrecipe/terms.html (not a Play field; linked from the website and the app's About screen) |
 | Ads | No, the app contains no ads |
 | App access | All functionality available without special access |
 
