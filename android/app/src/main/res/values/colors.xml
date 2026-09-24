@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#E4572E</color>
+    <!-- Matches the app's background so there's no flash between splash and first frame. -->
+    <color name="splash_background">#FBF6EE</color>
+</resources>
