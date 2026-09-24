@@ -14,6 +14,11 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+// AdMob app ID. Set admobAppId=ca-app-pub-XXXX~YYYY in android/gradle.properties;
+// until then Google's sample app ID is used, which only serves test ads.
+val admobAppId = (project.findProperty("admobAppId") as String?)
+    ?: "ca-app-pub-3940256099942544~3347511713"
+
 android {
     namespace = "com.basitmurad.stepwisekitchen"
     compileSdk = flutter.compileSdkVersion
@@ -32,6 +37,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["admobAppId"] = admobAppId
     }
 
     signingConfigs {

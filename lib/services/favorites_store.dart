@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:foodrecipe/models/recipe.dart';
+import 'package:foodrecipe/services/ads.dart';
 import 'package:foodrecipe/services/recipe_repository.dart';
 
 /// Saved recipe ids, persisted on device. Newest first.
@@ -34,10 +35,12 @@ class FavoritesStore extends ChangeNotifier {
 /// Makes the app's data available to the widget tree.
 class AppScope extends InheritedNotifier<FavoritesStore> {
   final RecipeRepository repo;
+  final Ads ads;
 
   const AppScope({
     super.key,
     required this.repo,
+    required this.ads,
     required FavoritesStore favorites,
     required super.child,
   }) : super(notifier: favorites);
@@ -49,4 +52,6 @@ class AppScope extends InheritedNotifier<FavoritesStore> {
       _of(context).notifier!;
 
   static RecipeRepository repoOf(BuildContext context) => _of(context).repo;
+
+  static Ads adsOf(BuildContext context) => _of(context).ads;
 }

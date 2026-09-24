@@ -17,7 +17,7 @@ Stepwise Kitchen: Easy Recipes
 ## Full description (max 4000)
 
 ```
-Stepwise Kitchen is a calm, beautiful cookbook that fits in your pocket — no sign-up, no ads, and no internet needed.
+Stepwise Kitchen is a calm, beautiful cookbook that fits in your pocket — free, no sign-up, and every recipe works offline.
 
 Explore 530 home-cooking recipes from 127 countries. Every recipe has clear ingredients, simple numbered steps, and honest cooking times, so you can stop scrolling and start cooking.
 
@@ -50,8 +50,8 @@ Search by a dish's English or original name. Highlights include Butter Chicken, 
 🌙 LIGHT & DARK THEMES
 A warm, easy-on-the-eyes design that follows your phone's theme.
 
-🔒 PRIVATE BY DESIGN
-No account. No ads. No tracking. Stepwise Kitchen doesn't collect any data and works completely offline, so it's perfect in the kitchen, on holiday, or anywhere with a weak signal.
+📶 WORKS OFFLINE
+All 530 recipes are built into the app, so they're there in the kitchen, on holiday, or anywhere with a weak signal. No account needed.
 
 Happy cooking! 🍽️
 
@@ -68,7 +68,8 @@ Recipe data includes recipes adapted from UniTools (theunitools.com), licensed C
 | Website | https://basitmurad.github.io/foodrecipe/ |
 | Privacy policy URL | https://basitmurad.github.io/foodrecipe/privacy-policy.html |
 | Terms & Conditions | https://basitmurad.github.io/foodrecipe/terms.html (not a Play field; linked from the website and the app's About screen) |
-| Ads | No, the app contains no ads |
+| Contains ads | **Yes** (Google AdMob) |
+| Advertising ID | **Yes**, used for advertising (declare under App content → Advertising ID) |
 | App access | All functionality available without special access |
 
 ## Graphics
@@ -95,9 +96,22 @@ adb exec-out screencap -p > screenshot-1.png
 
 ## Data safety form answers
 
-- Does your app collect or share any of the required user data types? **No**
-- Is all user data encrypted in transit? **Not applicable (no data leaves the device)**
-- Do you provide a way for users to request that their data be deleted? **Not applicable (no data collected)**
+The app itself collects nothing, but the Google Mobile Ads SDK does. Google publishes the answers for its SDK here; check it before submitting, as it's updated from time to time: https://developers.google.com/admob/android/privacy/play-data-disclosure
+
+- Does your app collect or share any of the required user data types? **Yes**
+- Is all of the user data collected by your app encrypted in transit? **Yes**
+- Do you provide a way for users to request that their data be deleted? **No** (the app has no accounts; users can reset their advertising ID in Android settings)
+
+Data types to declare (collected **and** shared, by the Google Mobile Ads SDK):
+
+| Data type | Collected / shared | Purposes |
+|---|---|---|
+| Location → Approximate location (from IP address) | Yes / Yes | Advertising or marketing, Analytics, Fraud prevention, security and compliance |
+| App activity → App interactions | Yes / Yes | Advertising or marketing, Analytics, Fraud prevention, security and compliance |
+| App info and performance → Crash logs, Diagnostics | Yes / Yes | Analytics, Fraud prevention, security and compliance |
+| Device or other IDs (advertising ID) | Yes / Yes | Advertising or marketing, Analytics, Fraud prevention, security and compliance |
+
+For each: processed ephemerally **No**; collection required **Yes** (users can't turn off ads in the app).
 
 ## Content rating questionnaire
 
@@ -108,4 +122,4 @@ Category: **Reference, News, or Educational**. Answer **No** to violence, sexual
 
 ## Target audience
 
-Choose **18 and over** (or 13+). Choosing under-13 age groups triggers the extra Families policy requirements.
+Choose **18 and over** (or 13+). Don't include under-13 age groups: apps for children must use only Families-certified ad SDKs and follow stricter ad rules.

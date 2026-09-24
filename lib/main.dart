@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+import 'package:foodrecipe/services/ads.dart';
 import 'package:foodrecipe/services/favorites_store.dart';
 import 'package:foodrecipe/services/recipe_repository.dart';
 import 'package:foodrecipe/theme/app_theme.dart';
@@ -15,7 +16,10 @@ Future<void> main() async {
   _registerLicenses();
   final repo = await RecipeRepository.load();
   final favorites = await FavoritesStore.load(repo);
-  runApp(MyApp(repo: repo, favorites: favorites));
+  final ads = Ads();
+  runApp(MyApp(repo: repo, favorites: favorites, ads: ads));
+  // The consent form needs a visible activity, so start after the first frame.
+  WidgetsBinding.instance.addPostFrameCallback((_) => ads.start());
 }
 
 /// List bundled content licences on Flutter's licence page: the OFL fonts and
@@ -29,7 +33,8 @@ void _registerLicenses() {
   };
   LicenseRegistry.addLicense(() async* {
     for (final MapEntry(key: name, value: path) in bundled.entries) {
-      yield LicenseEntryWithLineBreaks([name], await rootBundle.loadString(path));
+      yield LicenseEntryWithLineBreaks(
+          [name], await rootBundle.loadString(path));
     }
   });
 }
@@ -37,13 +42,20 @@ void _registerLicenses() {
 class MyApp extends StatelessWidget {
   final RecipeRepository repo;
   final FavoritesStore favorites;
+  final Ads ads;
 
-  const MyApp({super.key, required this.repo, required this.favorites});
+  const MyApp({
+    super.key,
+    required this.repo,
+    required this.favorites,
+    required this.ads,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppScope(
       repo: repo,
+      ads: ads,
       favorites: favorites,
       child: MaterialApp(
         title: AppTheme.appName,
@@ -94,27 +106,33 @@ class _AppShellState extends State<AppShell> {
           SavedPage(onBrowse: () => _select(0)),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _tab,
-        onDestinationSelected: _select,
-        destinations: [
-          const NavigationDestination(
-            icon: Icon(Icons.explore_outlined),
-            selectedIcon: Icon(Icons.explore_rounded),
-            label: 'Discover',
-          ),
-          const NavigationDestination(
-            icon: Icon(Icons.search_rounded),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            icon: Badge(
-              isLabelVisible: saved > 0,
-              label: Text('$saved'),
-              child: const Icon(Icons.favorite_border_rounded),
-            ),
-            selectedIcon: const Icon(Icons.favorite_rounded),
-            label: 'Saved',
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AdBanner(ads: AppScope.adsOf(context)),
+          NavigationBar(
+            selectedIndex: _tab,
+            onDestinationSelected: _select,
+            destinations: [
+              const NavigationDestination(
+                icon: Icon(Icons.explore_outlined),
+                selectedIcon: Icon(Icons.explore_rounded),
+                label: 'Discover',
+              ),
+              const NavigationDestination(
+                icon: Icon(Icons.search_rounded),
+                label: 'Search',
+              ),
+              NavigationDestination(
+                icon: Badge(
+                  isLabelVisible: saved > 0,
+                  label: Text('$saved'),
+                  child: const Icon(Icons.favorite_border_rounded),
+                ),
+                selectedIcon: const Icon(Icons.favorite_rounded),
+                label: 'Saved',
+              ),
+            ],
           ),
         ],
       ),

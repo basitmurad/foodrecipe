@@ -50,7 +50,7 @@ class AboutPage extends StatelessWidget {
                 Text(AppTheme.appName, style: theme.textTheme.headlineSmall),
                 const SizedBox(height: 4),
                 Text(
-                  '${repo.recipes.length} recipes · works offline · no ads',
+                  '${repo.recipes.length} recipes · recipes work offline',
                   style: soft,
                 ),
                 const SizedBox(height: 24),
@@ -96,8 +96,10 @@ class AboutPage extends StatelessWidget {
             Text('Privacy', style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              '${AppTheme.appName} collects no data and never connects to the '
-              'internet. Saved recipes stay on this device.',
+              'Saved recipes stay on this device. The app is free thanks to '
+              'ads from Google AdMob, which may use your device\'s advertising '
+              'ID and approximate location to show and measure ads. See the '
+              'Privacy Policy for details.',
               style: soft,
             ),
           ]),
@@ -117,6 +119,21 @@ class AboutPage extends StatelessWidget {
               const SizedBox(height: 10),
             ],
           ]),
+          ListenableBuilder(
+            listenable: AppScope.adsOf(context),
+            builder: (context, _) {
+              final ads = AppScope.adsOf(context);
+              if (!ads.privacyOptionsRequired) return const SizedBox.shrink();
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: OutlinedButton.icon(
+                  onPressed: ads.showPrivacyOptions,
+                  icon: const Icon(Icons.privacy_tip_outlined),
+                  label: const Text('Ad privacy settings'),
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 4),
           OutlinedButton.icon(
             onPressed: () => showLicensePage(

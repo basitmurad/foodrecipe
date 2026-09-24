@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:foodrecipe/models/recipe.dart';
+import 'package:foodrecipe/services/ads.dart';
+import 'package:foodrecipe/services/favorites_store.dart';
 import 'package:foodrecipe/views/cook_mode.dart';
 import 'package:foodrecipe/views/widgets/common.dart';
 
@@ -142,18 +144,26 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> {
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),
-      bottomNavigationBar: SafeArea(
-        minimum: const EdgeInsets.fromLTRB(20, 8, 20, 12),
-        child: FilledButton.icon(
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (_) => CookModePage(recipe: recipe),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(child: AdBanner(ads: AppScope.adsOf(context))),
+          SafeArea(
+            // Keep clear space between the ad and the button.
+            minimum: const EdgeInsets.fromLTRB(20, 14, 20, 12),
+            child: FilledButton.icon(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (_) => CookModePage(recipe: recipe),
+                ),
+              ),
+              icon: const Icon(Icons.local_fire_department_rounded),
+              label: const Text('Start cooking'),
             ),
           ),
-          icon: const Icon(Icons.local_fire_department_rounded),
-          label: const Text('Start cooking'),
-        ),
+        ],
       ),
     );
   }
@@ -483,8 +493,9 @@ class _SourceCredit extends StatelessWidget {
                 TextSpan(
                   style: theme.textTheme.bodySmall?.copyWith(color: soft),
                   children: [
-                    TextSpan(text: 'Recipe adapted from ${source.name}, '
-                        'licensed CC BY-SA 4.0.\n'),
+                    TextSpan(
+                        text: 'Recipe adapted from ${source.name}, '
+                            'licensed CC BY-SA 4.0.\n'),
                     TextSpan(
                       text: source.url,
                       style: TextStyle(color: theme.colorScheme.primary),

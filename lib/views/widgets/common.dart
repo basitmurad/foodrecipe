@@ -96,12 +96,16 @@ class _Blob extends StatelessWidget {
 }
 
 void openRecipe(BuildContext context, Recipe recipe, {String heroPrefix = ''}) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) =>
-          RecipeDetailPage(recipe: recipe, heroTag: '$heroPrefix${recipe.id}'),
-    ),
-  );
+  final ads = AppScope.adsOf(context);
+  Navigator.of(context)
+      .push(
+        MaterialPageRoute(
+          builder: (_) => RecipeDetailPage(
+              recipe: recipe, heroTag: '$heroPrefix${recipe.id}'),
+        ),
+      )
+      // Leaving a recipe is a natural break for an occasional full-screen ad.
+      .then((_) => ads.onRecipeClosed());
 }
 
 /// Small pill with an icon and a label, e.g. "25 min".

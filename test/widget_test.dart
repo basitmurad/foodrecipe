@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:foodrecipe/main.dart';
 import 'package:foodrecipe/models/recipe.dart';
+import 'package:foodrecipe/services/ads.dart';
 import 'package:foodrecipe/services/favorites_store.dart';
 import 'package:foodrecipe/services/recipe_repository.dart';
 
@@ -153,7 +154,7 @@ void main() {
   testWidgets('saving a recipe shows it in the Saved tab', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final favorites = await FavoritesStore.load(repo);
-    await tester.pumpWidget(MyApp(repo: repo, favorites: favorites));
+    await tester.pumpWidget(MyApp(repo: repo, favorites: favorites, ads: Ads.disabled()));
 
     expect(find.text('What\'s cooking\ntoday?'), findsOneWidget);
     await tester.tap(find.bySemanticsLabel('Save recipe').first);
@@ -168,7 +169,7 @@ void main() {
   testWidgets('About screen credits the recipe sources', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final favorites = await FavoritesStore.load(repo);
-    await tester.pumpWidget(MyApp(repo: repo, favorites: favorites));
+    await tester.pumpWidget(MyApp(repo: repo, favorites: favorites, ads: Ads.disabled()));
 
     await tester.tap(find.byTooltip('About'));
     await tester.pumpAndSettle();
@@ -178,5 +179,25 @@ void main() {
       findsOneWidget,
     );
     expect(find.textContaining('CC BY-SA 4.0'), findsWidgets);
+  });
+
+  group('InterstitialPacer', () {
+    test('waits for 4 recipes, then respects the 3-minute cooldown', () {
+      var now = DateTime(2026, 9, 24, 12);
+      final pacer = InterstitialPacer(now: () => now);
+
+      expect([for (var i = 0; i < 3; i++) pacer.recipeClosed()],
+          [false, false, false]);
+      expect(pacer.recipeClosed(), isTrue);
+      pacer.markShown();
+
+      // Four more recipes within a minute: still cooling down.
+      now = now.add(const Duration(minutes: 1));
+      expect([for (var i = 0; i < 4; i++) pacer.recipeClosed()].last, isFalse);
+
+      // After the cooldown, the next closed recipe may show an ad.
+      now = now.add(const Duration(minutes: 2));
+      expect(pacer.recipeClosed(), isTrue);
+    });
   });
 }

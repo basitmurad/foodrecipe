@@ -1,6 +1,6 @@
 # Stepwise Kitchen
 
-A calm, offline recipe app built with Flutter: 530 recipes from 127 countries, with nutrition, a daily pick, ingredient checklists and a step-by-step Cook Mode. No account, no ads, no network access.
+A calm, offline recipe app built with Flutter: 530 recipes from 127 countries, with nutrition, a daily pick, ingredient checklists and a step-by-step Cook Mode. No account needed; recipes work offline. Free, supported by Google AdMob ads.
 
 ![Stepwise Kitchen feature graphic](docs/play/feature-graphic.png)
 
@@ -11,7 +11,8 @@ A calm, offline recipe app built with Flutter: 530 recipes from 127 countries, w
 - **Cook Mode**: one large step per screen with a progress bar
 - **Search**: instant matching on dish, cuisine, tag or ingredient
 - **Saved**: favourites stored on the device
-- Light and dark themes, bundled fonts, and it works fully offline
+- Light and dark themes, bundled fonts; recipes work fully offline
+- Ads: a bottom banner and an occasional full-screen ad (at most every 4 recipes, 3-minute cooldown, never in Cook Mode), with Google's UMP consent form. See `lib/services/ads.dart` and PUBLISHING.md for AdMob setup
 
 ## Getting started
 
