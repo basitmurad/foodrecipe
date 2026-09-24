@@ -71,3 +71,9 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // play-services-ads pulls in work-runtime 2.7.0, whose Room version ships no
+    // R8 keep rules: release builds strip WorkDatabase_Impl and crash on launch.
+    implementation("androidx.work:work-runtime:2.10.1")
+}
