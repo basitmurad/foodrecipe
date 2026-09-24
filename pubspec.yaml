@@ -1,5 +1,5 @@
 name: foodrecipe
-description: "Savora — discover, save and cook recipes from around the world."
+description: "Stepwise Kitchen — discover, save and cook recipes from around the world."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1

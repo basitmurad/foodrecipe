@@ -1,11 +1,11 @@
-# Publishing Savora to Google Play
+# Publishing Stepwise Kitchen to Google Play
 
-App ID: `com.basitmurad.foodrecipe` — this can never change once uploaded to Play.
+App ID: `com.basitmurad.stepwisekitchen` — this can never change once uploaded to Play.
 
 ## 1. Create an upload key (once)
 
 ```sh
-keytool -genkey -v -keystore ~/savora-upload.jks -keyalg RSA -keysize 2048 \
+keytool -genkey -v -keystore ~/stepwise-upload.jks -keyalg RSA -keysize 2048 \
   -validity 10000 -alias upload
 ```
 
@@ -19,7 +19,7 @@ Create `android/key.properties` (already git-ignored):
 storePassword=<store password>
 keyPassword=<key password>
 keyAlias=upload
-storeFile=/Users/<you>/savora-upload.jks
+storeFile=/Users/<you>/stepwise-upload.jks
 ```
 
 Without this file, release builds fall back to the debug key, which Play rejects.

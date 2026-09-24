@@ -17,7 +17,7 @@ class AppColors {
 }
 
 class AppTheme {
-  static const appName = 'Savora';
+  static const appName = 'Stepwise Kitchen';
 
   static ThemeData light() => _build(
         brightness: Brightness.light,

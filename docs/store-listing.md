@@ -1,11 +1,11 @@
-# Google Play store listing — Savora
+# Google Play store listing — Stepwise Kitchen
 
 Copy each field into **Play Console → Grow → Store presence → Main store listing**.
 
 ## App name (max 30)
 
 ```
-Savora: Recipes & Cook Mode
+Stepwise Kitchen: Easy Recipes
 ```
 
 ## Short description (max 80)
@@ -17,7 +17,7 @@ Savora: Recipes & Cook Mode
 ## Full description (max 4000)
 
 ```
-Savora is a calm, beautiful cookbook that fits in your pocket — no sign-up, no ads, and no internet needed.
+Stepwise Kitchen is a calm, beautiful cookbook that fits in your pocket — no sign-up, no ads, and no internet needed.
 
 Every recipe is carefully written with clear ingredients, simple numbered steps, and honest cooking times, so you can stop scrolling and start cooking.
 
@@ -34,7 +34,7 @@ Tick ingredients off as you gather them, so nothing gets forgotten.
 Busy evening? Jump straight to dishes that are on the table in half an hour.
 
 🔍 SMART SEARCH
-Search by dish, cuisine, or ingredient. Have chickpeas? Savora finds Chana Masala and Crispy Falafel instantly.
+Search by dish, cuisine, or ingredient. Have chickpeas? Stepwise Kitchen finds Chana Masala and Crispy Falafel instantly.
 
 ❤️ YOUR PERSONAL COOKBOOK
 Save your favourites with one tap. They're stored only on your phone.
@@ -48,7 +48,7 @@ Highlights include Butter Chicken, Shakshuka, Spaghetti Carbonara, Chicken Teriy
 A warm, easy-on-the-eyes design that follows your phone's theme.
 
 🔒 PRIVATE BY DESIGN
-No account. No ads. No tracking. Savora doesn't collect any data and works completely offline, so it's perfect in the kitchen, on holiday, or anywhere with a weak signal.
+No account. No ads. No tracking. Stepwise Kitchen doesn't collect any data and works completely offline, so it's perfect in the kitchen, on holiday, or anywhere with a weak signal.
 
 Happy cooking! 🍽️
 ```

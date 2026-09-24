@@ -1,4 +1,4 @@
-package com.basitmurad.foodrecipe
+package com.basitmurad.stepwisekitchen
 
 import io.flutter.embedding.android.FlutterActivity
 

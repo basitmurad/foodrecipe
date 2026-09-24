@@ -1,8 +1,8 @@
-# Savora
+# Stepwise Kitchen
 
 A calm, offline recipe app built with Flutter: 32 hand-written recipes from around the world, a daily pick, ingredient checklists and a step-by-step Cook Mode. No account, no ads, no network access.
 
-![Savora feature graphic](docs/play/feature-graphic.png)
+![Stepwise Kitchen feature graphic](docs/play/feature-graphic.png)
 
 ## Features
 
